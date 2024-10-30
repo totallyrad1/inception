@@ -1,7 +1,11 @@
 #!/usr/bin/expect
 
-service mariadb start
-mysql_secure_installation
+spawn service mariadb start
+expect eof
+
+sleep 5
+
+spawn mysql_secure_installation
 
 expect "Enter current password for root (enter for none):"
 send "\n"
@@ -23,3 +27,5 @@ send "Y\n"
 
 expect "Reload privilege tables now?"
 send "Y\n"
+
+expect eof

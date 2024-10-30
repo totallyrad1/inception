@@ -1,11 +1,11 @@
 FROM debian:latest
 
 RUN apt-get update && \
-    apt-get install -y mariadb-server && \
+    apt-get install -y mariadb-server expect && \
     apt-get clean
 
 COPY . /src
 
 WORKDIR /src
 
-CMD ["echo", "mariadb up"]
+ENTRYPOINT ["./tools/init_mariadb.sh"]
