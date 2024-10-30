@@ -29,3 +29,5 @@ expect "Reload privilege tables now?"
 send "Y\n"
 
 expect eof
+
+exec /bin/bash -c "while true; do sleep 30; done"
