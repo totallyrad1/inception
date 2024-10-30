@@ -1,7 +1,6 @@
 #!/usr/bin/expect
 
-spawn service mariadb start
-expect eof
+exec service mariadb start
 
 sleep 5
 
@@ -30,4 +29,6 @@ send "Y\n"
 
 expect eof
 
-exec /bin/bash -c "while true; do sleep 30; done"
+exec service mariadb stop
+
+exec mariadbd-safe
