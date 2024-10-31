@@ -1,5 +1,8 @@
 #!/usr/bin/expect
 
+spawn sed -ie "s/127.0.0.1/0.0.0.0/g" /etc/mysql/mariadb.conf.d/50-server.cnf
+expect eof
+
 exec service mariadb start
 
 sleep 5
@@ -38,10 +41,10 @@ expect "MariaDB"
 send "CREATE DATABASE my_db;\n"
 
 expect "MariaDB"
-send "CREATE USER 'asnaji'@'%' IDENTIFIED BY 'password';\n" #reminder to change this to env variable
+send "CREATE USER 'asnaji'@'%' IDENTIFIED BY 'password';\n"
 
 expect "MariaDB"
-send "GRANT ALL PRIVILEGES ON my_db.* TO 'asnaji'@'%';\n" #this one too
+send "GRANT ALL PRIVILEGES ON my_db.* TO 'asnaji'@'%';\n"
 
 expect "MariaDB"
 send "FLUSH PRIVILEGES;\n"
