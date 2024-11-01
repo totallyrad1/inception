@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+    mariadb:
+        build: ./requirements/mariadb
+        volumes:
+            - inception-vol:/var/lib/mysql
+        networks:
+            - inception-net
+    wordpress:
+        build: ./requirements/wordpress
+        volumes:
+            - inception-vol:/var/www/html
+        networks:
+            - inception-net
+        depends_on:
+            - mariadb
+    nginx:
+        build: ./requirements/nginx
+        volumes:
+            - inception-vol:/usr/share/nginx/html
+        networks:
+            - inception-net
+        depends_on:
+            - wordpress
+            
+
+networks:
+    inception-net:
+        name: inception
+        driver: bridge
+
+volumes:
+    inception-vol:
