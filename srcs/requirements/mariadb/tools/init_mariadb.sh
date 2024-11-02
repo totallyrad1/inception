@@ -5,8 +5,6 @@ expect eof
 
 exec service mariadb start
 
-sleep 5
-
 spawn mysql_secure_installation
 
 expect "Enter current password for root (enter for none):"

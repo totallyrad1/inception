@@ -7,5 +7,7 @@ stop :
 clean :
 	docker rm $(shell docker ps -qa)
 
-fclean :
-	docker rmi $(shell docker images -qa)
+fclean : stop
+	docker rmi $(shell docker images -qa)  -f
+
+re : stop fclean all

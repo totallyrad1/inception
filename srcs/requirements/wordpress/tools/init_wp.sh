@@ -30,8 +30,12 @@ expect eof
 spawn wp core download --path=/var/www/inception --allow-root
 expect eof
 
+sleep 5
+
 spawn wp config create --dbname=$env(MARIADB_DBNAME) --dbuser=$env(MARIADB_USER) --dbpass=$env(MARIADB_PASS) --dbhost=mariadb --allow-root
 expect eof
+
+sleep 5
 
 spawn wp core install --url=localhost --title=WP-CLI --admin_user=$env(WP_ADMIN) --admin_password=$env(WP_ADMINGPASS) --admin_email=$env(WP_MAIL) --allow-root
 expect eof

@@ -2,6 +2,8 @@ version: '3'
 
 services:
     mariadb:
+        image: 'mariadb:42'
+        container_name: mariadb
         build: ./requirements/mariadb
         volumes:
             - inception-vol:/var/lib/mysql
@@ -10,9 +12,11 @@ services:
         env_file:
             - .env
     wordpress:
+        image: 'wordpress:42'
+        container_name: wordpress
         build: ./requirements/wordpress
         volumes:
-            - inception-vol:/var/www/inception
+            - wordpress-data:/var/www/inception
         networks:
             - inception-net
         depends_on:
@@ -20,9 +24,11 @@ services:
         env_file:
             - .env
     nginx:
+        image: 'nginx:42'
+        container_name: nginx
         build: ./requirements/nginx
         volumes:
-            - inception-vol:/var/www/inception
+            - wordpress-data:/var/www/inception
         networks:
             - inception-net
         depends_on:
@@ -38,3 +44,14 @@ networks:
 
 volumes:
     inception-vol:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: "$HOME/Desktop/data/mariadb"
+    wordpress-data:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: "$HOME/Desktop/data/wordpress-nginx"
