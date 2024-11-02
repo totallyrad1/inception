@@ -1,7 +1,7 @@
 FROM debian:latest
 
 RUN apt-get update && \
-    apt-get install -y nginx && \
+    apt-get install -y nginx openssl expect && \
     apt-get clean
 
 COPY . /src
@@ -13,4 +13,4 @@ RUN mv conf/nginx.conf /etc/nginx/
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["./tools/init_nginx.sh"]
