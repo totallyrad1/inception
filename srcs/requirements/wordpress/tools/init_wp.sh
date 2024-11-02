@@ -15,18 +15,16 @@ expect eof
 spawn mv wp-cli.phar /usr/local/bin/wp
 expect eof
 
-
-
 spawn wp --info
 expect eof
 
 spawn wp core download --path=/var/www/inception --allow-root
 expect eof
 
-spawn wp config create --dbname=my_db --dbuser=asnaji --dbpass=password --dbhost=mariadb --allow-root
+spawn wp config create --dbname=$env(MARIADB_DBNAME) --dbuser=$env(MARIADB_USER) --dbpass=$env(MARIADB_PASS) --dbhost=mariadb --allow-root
 expect eof
 
-spawn wp core install --url=localhost --title="WP-CLI" --admin_user=asnajiad --admin_password=testtest1 --admin_email=info@wp-cli.org --allow-root
+spawn wp core install --url=localhost --title=WP-CLI --admin_user=$env(WP_ADMIN) --admin_password=$env(WP_ADMINGPASS) --admin_email=$env(WP_MAIL) --allow-root
 expect eof
 
 spawn service php8.2-fpm stop

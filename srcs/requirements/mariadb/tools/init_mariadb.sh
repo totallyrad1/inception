@@ -38,13 +38,13 @@ expect "Enter password for user root:"
 send "\n"  
 
 expect "MariaDB"
-send "CREATE DATABASE my_db;\n"
+send "CREATE DATABASE $env(MARIADB_DBNAME);\n"
 
 expect "MariaDB"
-send "CREATE USER 'asnaji'@'%' IDENTIFIED BY 'password';\n"
+send "CREATE USER '$env(MARIADB_USER)'@'%' IDENTIFIED BY '$env(MARIADB_PASS)';\n"
 
 expect "MariaDB"
-send "GRANT ALL PRIVILEGES ON my_db.* TO 'asnaji'@'%';\n"
+send "GRANT ALL PRIVILEGES ON $env(MARIADB_DBNAME).* TO '$env(MARIADB_USER)'@'%';\n"
 
 expect "MariaDB"
 send "FLUSH PRIVILEGES;\n"

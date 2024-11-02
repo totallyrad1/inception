@@ -7,6 +7,8 @@ services:
             - inception-vol:/var/lib/mysql
         networks:
             - inception-net
+        env_file:
+            - .env
     wordpress:
         build: ./requirements/wordpress
         volumes:
@@ -15,6 +17,8 @@ services:
             - inception-net
         depends_on:
             - mariadb
+        env_file:
+            - .env
     nginx:
         build: ./requirements/nginx
         volumes:
