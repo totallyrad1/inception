@@ -12,7 +12,7 @@ services:
     wordpress:
         build: ./requirements/wordpress
         volumes:
-            - inception-vol:/var/www/html
+            - inception-vol:/var/www/inception
         networks:
             - inception-net
         depends_on:
@@ -22,13 +22,13 @@ services:
     nginx:
         build: ./requirements/nginx
         volumes:
-            - inception-vol:/usr/share/nginx/html
+            - inception-vol:/var/www/inception
         networks:
             - inception-net
         depends_on:
             - wordpress
         ports:
-            - "443:443"
+            - "80:80"
             
 
 networks:

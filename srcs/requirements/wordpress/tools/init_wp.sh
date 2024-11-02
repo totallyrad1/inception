@@ -1,5 +1,14 @@
 #!/usr/bin/expect
 
+spawn sed -ie "s/127.0.0.1/0.0.0.0/g" /etc/php/8.2/fpm/pool.d/www.conf
+expect eof
+
+spawn sed -ie "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /etc/php/8.2/fpm/pool.d/www.conf
+expect eof
+
+spawn sed -ie "s/9001/9000/g" /etc/php/8.2/fpm/pool.d/www.conf
+expect eof
+
 spawn curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 expect eof
 
@@ -30,10 +39,5 @@ expect eof
 spawn service php8.2-fpm stop
 expect eof
 
-spawn sed -ie "s/127.0.0.1/0.0.0.0/g" /etc/php/8.2/fpm/pool.d/www.conf
-expect eof
-
-spawn sed -ie "s/9001/9000/g" /etc/php/8.2/fpm/pool.d/www.conf
-expect eof
 
 exec php-fpm8.2 -F
