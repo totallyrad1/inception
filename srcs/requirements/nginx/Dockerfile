@@ -8,6 +8,9 @@ COPY . /src
 
 WORKDIR /src
 
-EXPOSE 8080
+RUN rm /etc/nginx/nginx.conf
+RUN mv conf/nginx.conf /etc/nginx/
+
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
