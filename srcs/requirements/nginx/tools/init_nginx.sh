@@ -21,7 +21,7 @@ expect "Organizational Unit Name"
 send "1337\n"
 
 expect "Common Name"
-send "asnaji.42.fr\n"
+send "$env(DOMAINNAME)\n"
 
 expect "Email Address"
 send "asnaji@student.1337.ma\n"
@@ -42,5 +42,11 @@ expect eof
 
 spawn mv /src/server.crt /etc/ssl/certs/
 expect eof
+
+exec envsubst < /src/conf/conf.txt > /src/conf/nginx.conf
+
+exec mv /src/conf/nginx.conf /etc/nginx/
+
+exec /bin/bash -c "while true; do sleep 30; done"
 
 exec nginx -g "daemon off;"
