@@ -11,6 +11,7 @@ clean : stop
 	docker rm $(shell docker ps -qa)
 
 fclean : down
+	rm -rf ~/Desktop/data/mariadb/* ~/Desktop/data/wordpress-nginx/*
 	docker rmi $(shell docker images -qa)
 
 re : fclean all

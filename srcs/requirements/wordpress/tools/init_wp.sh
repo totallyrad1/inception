@@ -43,7 +43,6 @@ expect eof
 spawn wp user create $env(WP_USER) $env(WP_USERMAIL) --user_pass=$env(WP_USERPASS) --role=contributor --allow-root
 expect eof
 
-exec chmod -R 777 wp-content
 
 # exec echo -e "define('WP_REDIS_HOST', 'redis');\ndefine('WP_REDIS_PORT', 6379);\ndefine('WP_REDIS_PASSWORD', '$env(REDIS_PASS)');\ndefine( 'WP_REDIS_DATABASE', 0 );\n" >> wp-config.php
 spawn wp config set WP_REDIS_HOST redis --allow-root
