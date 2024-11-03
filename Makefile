@@ -4,13 +4,13 @@ all :
 down :
 	docker-compose -f ./srcs/docker-compose.yml down
 
-stop :
+stop : down
 	docker stop $(shell docker ps -qa)
 
 clean : stop
 	docker rm $(shell docker ps -qa)
 
-fclean : clean down
-	docker rmi $(shell docker images -qa)  -f
+fclean : down
+	docker rmi $(shell docker images -qa)
 
 re : fclean all

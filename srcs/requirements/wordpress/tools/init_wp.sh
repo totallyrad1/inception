@@ -30,19 +30,25 @@ expect eof
 spawn wp core download --path=/var/www/inception --allow-root
 expect eof
 
-sleep 15
+sleep 30
 
 spawn wp config create --dbname=$env(MARIADB_DBNAME) --dbuser=$env(MARIADB_USER) --dbpass=$env(MARIADB_PASS) --dbhost=mariadb --allow-root
 expect eof
 
-sleep 15
+sleep 5
 
 spawn wp core install --url=localhost --title=WP-CLI --admin_user=$env(WP_ADMIN) --admin_password=$env(WP_ADMINPASS) --admin_email=$env(WP_MAIL) --allow-root
 expect eof
 
-sleep 15
-
 spawn wp user create $env(WP_USER) $env(WP_USERMAIL) --user_pass=$env(WP_USERPASS) --role=contributor --allow-root
+expect eof
+
+exec echo -e "define('WP_REDIS_HOST', 'redis');\ndefine('WP_REDIS_PORT', 6379);\ndefine('WP_REDIS_PASSWORD', '$env(REDIS_PASS)');\n" >> wp-config.php
+
+spawn wp plugin install redis-cache --activate --allow-root
+expect eof
+
+spawn wp redis enable --allow-root
 expect eof
 
 spawn service php8.2-fpm stop

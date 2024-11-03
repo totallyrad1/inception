@@ -20,7 +20,7 @@ services:
         networks:
             - inception-net
         depends_on:
-            - mariadb
+            - redis
         env_file:
             - .env
     nginx:
@@ -35,6 +35,16 @@ services:
             - wordpress
         ports:
             - "443:443"
+        env_file:
+            - .env
+    redis:
+        container_name: redis
+        image: 'redis:42'
+        build: ./requirements/bonus/redis
+        networks:
+            - inception-net
+        depends_on:
+            - mariadb
         env_file:
             - .env
             
