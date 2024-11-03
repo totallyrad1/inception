@@ -1,13 +1,16 @@
 all :
-	docker-compose -f ./srcs/docker-compose.yml up --build -d
+	docker-compose -f ./srcs/docker-compose.yml up --build
 
-stop :
+down :
 	docker-compose -f ./srcs/docker-compose.yml down
 
-clean :
+stop :
+	docker stop $(shell docker ps -qa)
+
+clean : stop
 	docker rm $(shell docker ps -qa)
 
-fclean : stop
+fclean : clean down
 	docker rmi $(shell docker images -qa)  -f
 
-re : stop fclean all
+re : fclean all

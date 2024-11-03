@@ -43,10 +43,13 @@ expect eof
 spawn mv /src/server.crt /etc/ssl/certs/
 expect eof
 
-exec envsubst < /src/conf/conf.txt > /src/conf/nginx.conf
+spawn sed -ie "s|CERTKEY|$env(CERTKEY)|g" /etc/nginx/nginx.conf
+expect eof
 
-exec mv /src/conf/nginx.conf /etc/nginx/
+spawn sed -ie "s|CERT|$env(CERT)|g" /etc/nginx/nginx.conf
+expect eof
 
-exec /bin/bash -c "while true; do sleep 30; done"
+spawn sed -ie "s|DOMAINNAME|$env(DOMAINNAME)|g" /etc/nginx/nginx.conf
+expect eof
 
 exec nginx -g "daemon off;"
