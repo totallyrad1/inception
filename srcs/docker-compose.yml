@@ -47,7 +47,16 @@ services:
             - mariadb
         env_file:
             - .env
-            
+    adminer:
+        container_name: adminer
+        image: 'adminer:42'
+        build: ./requirements/bonus/adminer
+        networks:
+            - inception-net
+        depends_on:
+            - mariadb
+        env_file:
+            - .env
 
 networks:
     inception-net:

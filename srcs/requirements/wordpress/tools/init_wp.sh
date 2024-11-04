@@ -43,8 +43,8 @@ expect eof
 spawn wp user create $env(WP_USER) $env(WP_USERMAIL) --user_pass=$env(WP_USERPASS) --role=contributor --allow-root
 expect eof
 
+sleep 5
 
-# exec echo -e "define('WP_REDIS_HOST', 'redis');\ndefine('WP_REDIS_PORT', 6379);\ndefine('WP_REDIS_PASSWORD', '$env(REDIS_PASS)');\ndefine( 'WP_REDIS_DATABASE', 0 );\n" >> wp-config.php
 spawn wp config set WP_REDIS_HOST redis --allow-root
 expect eof
 
@@ -57,11 +57,17 @@ expect eof
 spawn wp config set WP_REDIS_DATABASE 0 --allow-root
 expect eof
 
+sleep 2
+
 spawn wp plugin install redis-cache --activate --allow-root
 expect eof
 
+sleep 2
+
 spawn wp redis enable --allow-root
 expect eof
+
+sleep 2
 
 spawn service php8.2-fpm stop
 expect eof
