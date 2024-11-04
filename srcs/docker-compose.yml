@@ -61,6 +61,26 @@ services:
         build: ./requirements/bonus/snake
         networks:
             - inception-net
+    cadvisor:
+        container_name: cadvisor
+        image: 'cadvisor:42'
+        build: ./requirements/bonus/cadvisor
+        networks:
+            - inception-net
+    ftp-server:
+        image: 'ftp-server:42'
+        container_name: ftp-server
+        build: ./requirements/bonus/ftp-server
+        volumes:
+            - wordpress-data:/var/www/inception
+        networks:
+            - inception-net
+        depends_on:
+            - wordpress
+        env_file:
+            - .env
+        ports:
+            - "21:21"
 
 networks:
     inception-net:
