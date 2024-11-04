@@ -55,8 +55,12 @@ services:
             - inception-net
         depends_on:
             - mariadb
-        env_file:
-            - .env
+    snake:
+        container_name: snake
+        image: 'snake:42'
+        build: ./requirements/bonus/snake
+        networks:
+            - inception-net
 
 networks:
     inception-net:
