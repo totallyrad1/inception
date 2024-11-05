@@ -37,7 +37,7 @@ expect eof
 
 sleep 5
 
-spawn wp core install --url=localhost --title=WP-CLI --admin_user=$env(WP_ADMIN) --admin_password=$env(WP_ADMINPASS) --admin_email=$env(WP_MAIL) --allow-root
+spawn wp core install --url=$env(DOMAINNAME) --title=WP-CLI --admin_user=$env(WP_ADMIN) --admin_password=$env(WP_ADMINPASS) --admin_email=$env(WP_MAIL) --allow-root
 expect eof
 
 spawn wp user create $env(WP_USER) $env(WP_USERMAIL) --user_pass=$env(WP_USERPASS) --role=contributor --allow-root
