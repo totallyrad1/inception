@@ -3,6 +3,9 @@
 spawn sed -ie "s|anonymous_enable=NO|anonymous_enable=YES|g" /etc/vsftpd.conf
 expect eof
 
+spawn sed -ie "s|#write_enable=YES|write_enable=YES|g" /etc/vsftpd.conf
+expect eof
+
 spawn service vsftpd start
 expect eof
 

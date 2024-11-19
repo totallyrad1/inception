@@ -55,10 +55,10 @@ services:
             - inception-net
         depends_on:
             - mariadb
-    snake:
-        container_name: snake
-        image: 'snake:42'
-        build: ./requirements/bonus/snake
+    static-page:
+        container_name: static-page
+        image: 'static-page:42'
+        build: ./requirements/bonus/static-page
         networks:
             - inception-net
     cadvisor:
@@ -88,7 +88,7 @@ services:
         env_file:
             - .env
         ports:
-            - "21:21"
+            - "8081:21"
 
 networks:
     inception-net:

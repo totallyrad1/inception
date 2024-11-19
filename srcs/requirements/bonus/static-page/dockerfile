@@ -6,6 +6,6 @@ RUN apt-get update && \
 
 COPY . /src
 
-WORKDIR /src/snake
+WORKDIR /src/static-page
 
 CMD ["php", "-S", "0.0.0.0:8080"]
