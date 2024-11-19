@@ -6,4 +6,10 @@ expect eof
 spawn sed -ie "s|# supervised auto|supervised no|g" /etc/redis/redis.conf
 expect eof
 
+spawn sed -ie "s|daemonize yes|daemonize no|g" /etc/redis/redis.conf
+expect eof
+
+spawn sed -ie "s|protected-mode yes|protected-mode no|g" /etc/redis/redis.conf
+expect eof
+
 exec redis-server /etc/redis/redis.conf --daemonize no --protected-mode no

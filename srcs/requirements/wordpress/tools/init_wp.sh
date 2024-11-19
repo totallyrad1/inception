@@ -72,5 +72,4 @@ sleep 2
 spawn service php8.2-fpm stop
 expect eof
 
-
 exec php-fpm8.2 -F
